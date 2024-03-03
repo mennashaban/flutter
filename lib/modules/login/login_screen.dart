@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatelessWidget {
+import '../../shared/commponents/commponents.dart';
+
+class LoginScreen extends StatefulWidget {
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   var emailController = TextEditingController();
+
   var PasswordController = TextEditingController();
+
+  var formkey=  GlobalKey<FormState>();
+
+  bool isPassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -12,99 +24,99 @@ class LoginScreen extends StatelessWidget {
         padding: const EdgeInsets.all(20.0),
         child: Center(
           child: SingleChildScrollView(
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Login',
-                  style: TextStyle(
-                      fontSize: 30.0,
-                      fontWeight: FontWeight.w700
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextFormField(
-                  controller: emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  onFieldSubmitted: (value){
-                    print(value);
-                  },
-                  onChanged:  (value){
-                    print(value);},
-                  decoration: InputDecoration(
-                    labelText:'email address',
-                    prefixIcon: Icon(
-                      Icons.email,
+            child: Form(
+              key: formkey,
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Login',
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.w700
                     ),
-                    //hintText:'email address',
-                    border: OutlineInputBorder(),
-
                   ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                TextFormField(
-                  controller: PasswordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  obscureText: true,
-                  onFieldSubmitted: (value){
-                    print(value);
-                  },
-                  onChanged:  (value){
-                    print(value);},
-                  decoration: InputDecoration(
-                    labelText:'Password',
-                    prefixIcon: Icon(
-                      Icons.lock,
-                    ),
-                    suffixIcon: Icon(
-                      Icons.remove_red_eye,
-                    ),
-                    //hintText:'email address',
-                    border: OutlineInputBorder(),
-
+                  SizedBox(
+                    height: 20.0,
                   ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Container(
-                  width: double.infinity,
-                  color: Colors.blue,
-
-                  child: MaterialButton(
-                    onPressed: (){
-                      print(emailController.text);
-                      print(PasswordController.text);
+                  defaultFormField(
+                    controller: emailController,
+                    label: 'Email',
+                    prefix: Icons.email,
+                    type: TextInputType.emailAddress,
+                    validate: (value){
+                      if(value!.isEmpty){
+                        return 'email must not be empty';
+                      }
                     },
-                    child: Text(
-                      'LOGIN',
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Don\'t have an account?',
 
-                    ),
-                    TextButton(onPressed: (){}, child: Text(
-                      'register now',
-                    ))
-                  ],
-                )
-              ],
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  defaultFormField(
+                    controller: PasswordController,
+                    label: 'Password',
+                    prefix: Icons.lock,
+                    suffix: isPassword ? Icons.visibility_off : Icons.visibility,
+                    isPassword: isPassword,
+                    suffixPressed: (){
+                      setState(() {
+                        isPassword = !isPassword;
+                      });
+                    },
+                    type: TextInputType.visiblePassword,
+                    validate: (value){
+                      if(value!.isEmpty){
+                        return 'Password must not be empty';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  defaultButton(
+                      //width: double.infinity,
+                      function: (){
+                        if (formkey.currentState!.validate()){
+                          print(emailController.text);
+                          print(PasswordController.text);
+                        }
+
+                      },
+                      text: 'login',
+                  ),
+                  // SizedBox(
+                  //   height: 20.0,
+                  // ),
+                  // defaultButton(
+                  //   //width: double.infinity,
+                  //     background: Colors.red,
+                  //     function: (){
+                  //       print(emailController.text);
+                  //       print(PasswordController.text);
+                  //     },
+                  //     text: 'ReGIster',
+                  //     isUpperCase: false,
+                  // ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Don\'t have an account?',
+                      ),
+                      TextButton(onPressed: (){}, child: Text(
+                        'register now',
+                      ))
+                    ],
+                  ),
+                ],
+              ),
             ),
            ),
         ),
