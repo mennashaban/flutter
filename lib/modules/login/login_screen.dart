@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   defaultFormField(
                     controller: PasswordController,
-                    label: 'Password',
+                    label: 'password',
                     prefix: Icons.lock,
                     suffix: isPassword ? Icons.visibility_off : Icons.visibility,
                     isPassword: isPassword,
