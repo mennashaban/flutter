@@ -18,18 +18,18 @@ class CounterScreen extends StatelessWidget
     return BlocProvider(
       create: (BuildContext context) => CounterCubit(),
       child: BlocConsumer<CounterCubit, CounterStates>(
-        listener: (context,state){
+        listener: (BuildContext context,CounterStates state){
           if(state is CounterInitialState){
             print('initial state');
           }
           if(state is CounterMinusState){
-            print('Minus state');
+            print('Minus state ${state.counter}');
           }
           if(state is CounterPlusState){
-            print('plus state');
+            print('plus state ${state.counter}');
           }
         },
-        builder: (context,state){
+        builder: (BuildContext context,CounterStates state){
           return Scaffold(
             appBar: AppBar(
               title: Text(
