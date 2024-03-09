@@ -4,6 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'layout/home_layout.dart';
 import 'modules/bmi/BMI_calculator.dart';
+import 'modules/challenges/maintest.dart';
+import 'modules/challenges/test1.dart';
+import 'modules/challenges/test2.dart';
+import 'modules/challenges/test3.dart';
 import 'modules/counter/counter_screen.dart';
 import 'package:login_page/shared/bloc_observer.dart';
 
@@ -20,7 +24,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CounterScreen(),
+      home: NavigationScreens(),
+      routes: {
+        '/login': (context)=>LoginScreen(),
+      },
+
     );
   }
 

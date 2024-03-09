@@ -11,22 +11,8 @@ import '../shared/commponents/constants.dart';
 
 
 
-class HomeLayout extends StatefulWidget {
-  @override
-  State<HomeLayout> createState() => _HomeLayoutState();
-}
-
-// create database
-// create tables
-// open database
-// insert to database
-// get from database
-// update in database
-// delete from database
-
-
-
-class _HomeLayoutState extends State<HomeLayout> {
+class HomeLayout extends StatelessWidget
+{
 
   int currentindex = 0;
   List<Widget> screens = [
@@ -43,12 +29,7 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   //const HomeLayout({super.key});
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    createDatabase();
-  }
+
 
   late Database database;
   var scaffoldkey = GlobalKey<ScaffoldState>();
@@ -81,13 +62,11 @@ class _HomeLayoutState extends State<HomeLayout> {
                 getDataFromDatabase(database).then((value)
                 {
                   Navigator.pop(context);
-                  setState(() {
-                    isBotomSheetShow = false;
-                    fabIcon = Icons.edit;
-                    tasks = value;
-                    // print('------------------');
-                    // print(tasks);
-                  });
+                  isBotomSheetShow = false;
+                  fabIcon = Icons.edit;
+                  tasks = value;
+                  // print('------------------');
+                  // print(tasks);
                 });
               });
 
@@ -184,14 +163,11 @@ class _HomeLayoutState extends State<HomeLayout> {
               ).closed.then((value) {
                 //Navigator.pop(context);
                 isBotomSheetShow = false;
-                setState(() {
-                  fabIcon = Icons.edit;
-                });
+                fabIcon = Icons.edit;
+
               });
               isBotomSheetShow=true;
-              setState(() {
-                fabIcon = Icons.add;
-              });
+              fabIcon = Icons.add;
             }
           }
         },
@@ -203,9 +179,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         //backgroundColor: Colors.purpleAccent,
         currentIndex: currentindex,
         onTap: (index) {
-          setState(() {
-            currentindex = index;
-          });
+          currentindex = index;
         },
 
         elevation: 15.0,
@@ -258,11 +232,10 @@ class _HomeLayoutState extends State<HomeLayout> {
       {
         getDataFromDatabase(database).then((value)
         {
-          setState(() {
-            tasks = value;
-            // print('------------------');
-            // print(tasks);
-          });
+          tasks = value;
+          // print('------------------');
+          // print(tasks);
+
         });
         print('database opened');
       },
@@ -290,3 +263,13 @@ class _HomeLayoutState extends State<HomeLayout> {
     return await  database.rawQuery('SELECT * FROM tasks');
   }
 }
+
+// create database
+// create tables
+// open database
+// insert to database
+// get from database
+// update in database
+// delete from database
+
+
