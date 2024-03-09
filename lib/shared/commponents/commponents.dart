@@ -27,11 +27,14 @@ Widget defaultButton({
     );
 
 Widget defaultFormField({
+  VoidCallback? onTap,
+  bool isClickable = true,
   required TextEditingController controller,
   required TextInputType type,
   required String? Function(String?)? validate,
   required String label,
   required IconData prefix,
+
   bool isPassword = false,
   IconData? suffix,
    VoidCallback? suffixPressed,
@@ -40,11 +43,13 @@ Widget defaultFormField({
 => TextFormField(
     controller: controller,
     keyboardType: type,
+    enabled: isClickable,
     onFieldSubmitted: (value){
       print(value);
     },
     onChanged:  (value){
       print(value);},
+    onTap: onTap,
     validator: validate,
     obscureText: isPassword,
     decoration: InputDecoration(
@@ -62,4 +67,39 @@ Widget defaultFormField({
       //hintText:'email address',
       border: OutlineInputBorder(),
     ),
+);
+
+Widget buildTaskItem(Map model) => Padding(
+  padding: const EdgeInsets.all(20.0),
+  child: Row(
+    children: [
+      CircleAvatar(
+        radius: 35.0,
+        child: Text(
+          '${model['time']}',
+        ),
+      ),
+      SizedBox(
+        width: 20.0,
+      ),
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '${model['title']}',
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(
+            '${model['date']}',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          ),
+        ],
+      ),
+    ],
+  ),
 );
