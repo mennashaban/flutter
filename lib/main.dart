@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:login_page/modules/login/login_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_page/shared/network/remote/dio_helper.dart';
 import 'layout/home_layout.dart';
 import 'layout/news_app/news_layout.dart';
 import 'modules/bmi/BMI_calculator.dart';
@@ -16,6 +17,7 @@ import 'package:flutter/services.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
+  DioHelper.dio;
 
   runApp(MyApp());
 }
@@ -26,13 +28,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light.copyWith(
-      statusBarColor: Colors.green,
+      statusBarColor: Colors.orangeAccent,
       statusBarBrightness: Brightness.light,
     ));
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        primaryColor: Colors.deepOrange,
         scaffoldBackgroundColor: Colors.white,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
@@ -47,12 +50,20 @@ class MyApp extends StatelessWidget {
           selectedItemColor: Colors.deepOrange,
           elevation: 20.0,
         ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.deepOrange,
+          foregroundColor: Colors.white,
+        ),
         iconButtonTheme: IconButtonThemeData(
           style: ButtonStyle(
             iconColor: MaterialStateProperty.all<Color>(Colors.black),
           ),
         ),
       ),
+      darkTheme: ThemeData(
+        scaffoldBackgroundColor: Colors.black26,
+      ),
+      themeMode: ThemeMode.light,
       home: NewsLayout(),
       // routes: {
       //   '/login': (context)=>LoginScreen(),
